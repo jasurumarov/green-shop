@@ -3,12 +3,18 @@ import { useSelector } from 'react-redux'
 
 // Components
 import CartContent from '../../components/cartContent/CartContent'
+import Empty from '../../components/empty/Empty'
 
 const Cart = () => {
   const carts = useSelector(s => s.cart.value)
   return (
     <div className='cart-page'>
+      {carts.length 
+        ?
       <CartContent data={carts}/>
+        :
+      <Empty/>
+      }
     </div>
   )
 }

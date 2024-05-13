@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 
 // IMAGES
 import PaymentMethods from '../../images/payment.svg'
 import { toast } from 'react-toastify'
+
 
 const initialState = {
   fname: "",
@@ -14,12 +16,14 @@ const initialState = {
   state: "",
   zip: "",
   email: "",
-  number: ""
+  number: "",
+  apartment: "",
+  note: ""
 }
 
 const CheckoutContent = ({data}) => {
   const [order, setOrder] = useState(initialState)
-
+  
   const handleSubmit = (e) => {
     e.preventDefault()
     let newOrder = {
@@ -32,13 +36,18 @@ const CheckoutContent = ({data}) => {
       state: order.state,
       zip: order.zip,
       email: order.email,
-      number: order.number
+      number: order.number,
+      apartment: order.apartment,
+      note: order.note
     }
     toast.success("Succesfully ordered")
+    navigate("/")
     console.log(newOrder);
-    // setOrder(initialState)
+    setOrder(initialState)
   }
-
+  
+  let navigate = useNavigate()
+  
   let totalPrice = data?.reduce((sum, item) => sum + (item.price * item.quantity), 0)
 
   const cart = data?.map(el => (
@@ -91,7 +100,7 @@ const CheckoutContent = ({data}) => {
               </div>
               <div>
                 <label htmlFor="appartment">Appartment</label>
-                <input id='appartment' type="text" placeholder='Appartment, suite, unit, etc. (optional)' />
+                <input value={order.apartment} onChange={e => setOrder(prev => ({...prev, apartment: e.target.value}))} id='appartment' type="text" placeholder='Appartment, suite, unit, etc. (optional)' />
               </div>
             </div>
             <div className='checkout__form-inputs'>
@@ -129,7 +138,7 @@ const CheckoutContent = ({data}) => {
             </div>
             <div className="checkout__form-textarea">
               <label htmlFor="note">Order notes (optional)</label>
-              <textarea id="note"></textarea>
+              <textarea value={order.note} onChange={e => setOrder(prev => ({...prev, note: e.target.value}))} id="note"></textarea>
             </div>
             <button>Place Order</button>
           </form>

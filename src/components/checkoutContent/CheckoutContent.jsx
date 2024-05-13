@@ -1,11 +1,44 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { useSelector } from 'react-redux'
 
 // IMAGES
 import PaymentMethods from '../../images/payment.svg'
+import { toast } from 'react-toastify'
+
+const initialState = {
+  fname: "",
+  lname: "",
+  country: "",
+  city: "",
+  street: "",
+  state: "",
+  zip: "",
+  email: "",
+  number: ""
+}
 
 const CheckoutContent = ({data}) => {
+  const [order, setOrder] = useState(initialState)
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    let newOrder = {
+      id: new Date().getTime(),
+      fname: order.fname,
+      lname: order.lname,
+      country: order.country,
+      city: order.city,
+      street: order.street,
+      state: order.state,
+      zip: order.zip,
+      email: order.email,
+      number: order.number
+    }
+    toast.success("Succesfully ordered")
+    console.log(newOrder);
+    // setOrder(initialState)
+  }
+
   let totalPrice = data?.reduce((sum, item) => sum + (item.price * item.quantity), 0)
 
   const cart = data?.map(el => (
@@ -26,35 +59,35 @@ const CheckoutContent = ({data}) => {
           <Link to={"/"}>Home</Link> / <Link to={"/cart"}>Cart</Link> / Checkout
         </div>
         <div className="checkout-section__content">
-          <form>
+          <form onSubmit={handleSubmit}>
             <h2>Billing Address</h2>
             <div className='checkout__form-inputs'>
               <div>
                 <label htmlFor="fname">First Name <sup>*</sup></label>
-                <input id='fname' type="text" />
+                <input value={order.fname} onChange={e => setOrder(prev => ({...prev, fname: e.target.value}))} required id='fname' type="text" />
               </div>
               <div>
                 <label htmlFor="lname">Last Name <sup>*</sup></label>
-                <input id='lname' type="text" />
+                <input value={order.lname} onChange={e => setOrder(prev => ({...prev, lname: e.target.value}))} required id='lname' type="text" />
               </div>
             </div>
             <div className='checkout__form-inputs'>
               <div>
                 <label htmlFor="country">Country / Region <sup>*</sup></label>
-                <select>
-                  <option value="uz">Uzbeksitan</option>
-                  <option value="uz">Russia</option>
+                <select value={order.country} onChange={e => setOrder(prev => ({...prev, country: e.target.value}))} required>
+                  <option value="uzbekistan">Uzbeksitan</option>
+                  <option value="russia">Russia</option>
                 </select>
               </div>
               <div>
                 <label htmlFor="city">Town / City <sup>*</sup></label>
-                <input id='city' type="text" />
+                <input value={order.city} onChange={e => setOrder(prev => ({...prev, city: e.target.value}))} required id='city' type="text" />
               </div>
             </div>
             <div className='checkout__form-inputs'>
               <div>
                 <label htmlFor="adress">Street Address <sup>*</sup></label>
-                <input id='adress' type="text" placeholder='House number and street name' />
+                <input value={order.street} onChange={e => setOrder(prev => ({...prev, street: e.target.value}))} required id='adress' type="text" placeholder='House number and street name' />
               </div>
               <div>
                 <label htmlFor="appartment">Appartment</label>
@@ -64,20 +97,20 @@ const CheckoutContent = ({data}) => {
             <div className='checkout__form-inputs'>
               <div>
                 <label htmlFor="state">State <sup>*</sup></label>
-                <select>
+                <select value={order.state} onChange={e => setOrder(prev => ({...prev, state: e.target.value}))} required>
                   <option value="tashkent">Tashkent</option>
                   <option value="moscow">Moscow</option>
                 </select>
               </div>
               <div>
                 <label htmlFor="zip">Zip <sup>*</sup></label>
-                <input id='zip' type="text" />
+                <input value={order.zip} onChange={e => setOrder(prev => ({...prev, zip: e.target.value}))}  required id='zip' type="text" />
               </div>
             </div>
             <div className='checkout__form-inputs checkout__form-inputs--last'>
               <div>
                 <label htmlFor="email">Email address <sup>*</sup></label>
-                <input id='email' type="email" />
+                <input value={order.email} onChange={e => setOrder(prev => ({...prev, email: e.target.value}))} required id='email' type="email" />
               </div>
               <div>
                 <label htmlFor="tel">Phone Number <sup>*</sup></label>
@@ -86,7 +119,7 @@ const CheckoutContent = ({data}) => {
                     <option value="+998">+998</option>
                     <option value="+996">+996</option>
                   </select>
-                  <input id='tel' type="tel" />
+                  <input value={order.number} onChange={e => setOrder(prev => ({...prev, number: e.target.value}))} required id='tel' type="tel" />
                 </article>
               </div>
             </div>

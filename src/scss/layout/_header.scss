@@ -1,6 +1,12 @@
 @use '../abstracts' as *;
 
 header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #fff;
+    z-index: 10;
     border-bottom: 0.3px solid #46A35880;
     .header__content {
         display: flex;

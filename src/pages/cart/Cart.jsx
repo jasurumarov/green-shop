@@ -8,7 +8,7 @@ import Empty from '../../components/empty/Empty'
 const Cart = () => {
   const carts = useSelector(s => s.cart.value)
   return (
-    <div className='cart-page'>
+    <div style={{marginTop: '123px'}}   className='cart-page'>
       {carts.length 
         ?
       <CartContent data={carts}/>

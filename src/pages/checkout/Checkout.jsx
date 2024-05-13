@@ -1,9 +1,10 @@
 import React from 'react'
+import CheckoutContent from '../../components/checkoutContent/CheckoutContent'
 
 const Checkout = () => {
   return (
-    <div className='checkout-page'>
-        <h2>Checkout Page</h2>
+    <div style={{marginTop: '123px'}} className='checkout-page'>
+        <CheckoutContent/>
     </div>
   )
 }

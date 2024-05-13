@@ -8,7 +8,7 @@ import Products from '../../components/products/Products'
 const Home = () => {
   const {data, loading} = useFetch('/products')
   return (
-    <div className='home-page'>
+    <div style={{marginTop: '83px'}} className='home-page'>
         <Hero/>
         <Products data={data} loading={loading}/>
     </div>

@@ -1,7 +1,24 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
-const CheckoutContent = () => {
+// IMAGES
+import PaymentMethods from '../../images/payment.svg'
+
+const CheckoutContent = ({data}) => {
+  let totalPrice = data?.reduce((sum, item) => sum + (item.price * item.quantity), 0)
+
+  const cart = data?.map(el => (
+    <div key={el.id} className="checkout__aside__product">
+      <img src={el.images[0]} alt="" />
+      <div>
+        <h3 title={el.title}>{el.title}</h3>
+        <p><span>SKU:</span>  1995751877966</p>
+      </div>
+      <h5>(x {el.quantity})</h5>
+      <h4>${(el.price * el.quantity).brm()}</h4>
+    </div>
+  ))
   return (
     <div className='checkout-section'>
       <div className="container">
@@ -74,7 +91,7 @@ const CheckoutContent = () => {
               </div>
             </div>
             <div className="checkout__form-radio">
-              <input type="checkbox" class="checkbox-round" />
+              <input type="checkbox" className="checkbox-round" />
               <label htmlFor="ship">Ship to a different address?</label>
             </div>
             <div className="checkout__form-textarea">
@@ -83,7 +100,49 @@ const CheckoutContent = () => {
             </div>
             <button>Place Order</button>
           </form>
-          <aside></aside>
+          <aside>
+            <h2>Your Order</h2>
+            <div className="checkout__aside__products-title">
+              <h3>Products</h3>
+              <h3>Subtotal</h3>
+            </div>
+            <div className="checkout__aside__products">
+              {cart}
+            </div>
+            <p className='checkout__aside-coupon'>Have a coupon code? <Link to={"/cart"}>Click here</Link></p>
+            <div className="checkout__aside-check">
+              <div className="checkout__aside-check__price">
+                <p>Subtotal</p>
+                <h3>${totalPrice}</h3>
+              </div>
+              <div className="checkout__aside-check__price">
+                <p>Coupon Discount</p>
+                <h3>(-) 00.00</h3>
+              </div>
+              <div className="checkout__aside-check__price">
+                <p>Shiping</p>
+                <h3>$16.00</h3>
+              </div>
+              <p className='checkout__aside-check__ship'>View shipping charge</p>
+              <div className="checkout__aside-check__total">
+                <h3>Total</h3>
+                <h3>${totalPrice + 16}</h3>
+              </div>
+              <h3 className="checkout__aside-check__payment-title">Payment Method</h3>
+              <label htmlFor='paym' className="checkout__aside-check__radio">
+                <input id='paym' type="radio" name='payment'/>
+                <img src={PaymentMethods} alt="" />
+              </label>
+              <label htmlFor='transfer' className="checkout__aside-check__radio">
+                <input id='transfer' type="radio" name='payment'/>
+                <p>Dorect bank transfer</p>
+              </label>
+              <label htmlFor='deliervy' className="checkout__aside-check__radio">
+                <input defaultChecked id='deliervy' type="radio" name='payment'/>
+                <p>Cash on delivery</p>
+              </label>
+            </div>
+          </aside>
         </div>
       </div>
     </div>

@@ -27,7 +27,7 @@ const Products = ({data, loading}) => {
                 </article>
             </div>
             <p title={el.title} >{el.title}</p>
-            <h3>${el.price}</h3>
+            <h3>${el.price?.brm()}</h3>
         </div>
     ))
   return (

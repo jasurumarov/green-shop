@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 // IMAGES
 import SiteLogo from '../../images/site-logo.svg'
@@ -9,6 +10,7 @@ import { IoLogOutOutline } from 'react-icons/io5'
 
 const Header = () => {
   const [menu, setMenu] = useState(false)
+  const carts = useSelector(s => s.cart.value)
   return (
     <header>
         <div className="container">
@@ -26,7 +28,7 @@ const Header = () => {
               <FiSearch />
               <Link to={"/cart"}>
                 <RiShoppingCart2Line />
-                <sup>0</sup>
+                <sup>{carts.length}</sup>
               </Link>
               <button>
                 <IoLogOutOutline />

@@ -1,4 +1,6 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
+import { addToCart } from '../../context/cartSlice'
 
 // IMAGES
 import { LuShoppingCart } from 'react-icons/lu'
@@ -6,12 +8,14 @@ import { FaRegHeart } from 'react-icons/fa'
 import { FiSearch } from 'react-icons/fi'
 
 const Products = ({data, loading}) => {
+    const dispatch = useDispatch()
+
     let product = data?.data?.products.map(el => (
         <div key={el.id} className="products__card">
             <div className="products__card-img">
                 <img src={el.images[0]} alt="" />
                 <article>
-                    <div><LuShoppingCart /></div>
+                    <div onClick={() => dispatch(addToCart(el))}><LuShoppingCart /></div>
                     <div><FaRegHeart /></div>
                     <div><FiSearch /></div>
                 </article>

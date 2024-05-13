@@ -58,6 +58,7 @@
         .products__cards {
             display: flex;
             flex-wrap: wrap;
+            justify-content: center;
             gap: 56px;
 
             .products__card {

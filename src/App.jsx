@@ -1,5 +1,7 @@
 import './scss/style.scss'
 import { Routes, Route } from "react-router-dom"
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // Pages
 import Home from "./pages/home/Home";
@@ -23,6 +25,8 @@ function App() {
           <Route path="checkout" element={<Checkout/>}/>
         </Route>
       </Routes> 
+
+      <ToastContainer/>
     </>
   )
 }

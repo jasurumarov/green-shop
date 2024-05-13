@@ -1,8 +1,12 @@
 import React from 'react'
 import { LuTrash } from 'react-icons/lu'
 import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { incrementCartQuantity, decrementCartQuantity, removeItemFromCart } from '../../context/cartSlice'
 
 const CartContent = ({ data }) => {
+  const dispatch = useDispatch()
+
   let cart = data?.map(el => (
     <div key={el.id} className="cart__table-item">
       <div>
@@ -16,13 +20,13 @@ const CartContent = ({ data }) => {
         <p>${el.price}</p>
       </div>
       <div>
-        <button>-</button>
-        <span>0</span>
-        <button>+</button>
+        <button disabled={el.quantity <= 1} onClick={() => dispatch(decrementCartQuantity(el))}>-</button>
+        <span>{el.quantity}</span>
+        <button onClick={() => dispatch(incrementCartQuantity(el))}>+</button>
       </div>
       <div>
         <p>${el.price * el.quantity}</p>
-        <button><LuTrash/></button>
+        <button onClick={() => dispatch(removeItemFromCart(el))}><LuTrash/></button>
       </div>
     </div>
   ))

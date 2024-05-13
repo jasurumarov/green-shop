@@ -109,7 +109,7 @@
                             display: flex;
                             align-items: center;
                             gap: 13px;
-                            margin-right: 83px;
+                            width: 171.5px;
 
                             button {
                                 border-radius: 29px;
@@ -124,6 +124,10 @@
 
                                 &:active {
                                     opacity: .91;
+                                }
+
+                                &:disabled {
+                                    opacity: .8;
                                 }
                             }
 
@@ -140,10 +144,9 @@
                         div:last-child {
                             display: flex;
                             align-items: center;
-                            gap: 50px;
 
                             p {
-                                width: 61px;
+                                width: 101px;
                                 font-size: 16px;
                                 font-weight: 700;
                                 line-height: 16px;

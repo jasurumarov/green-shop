@@ -6,6 +6,7 @@ import { addToCart } from '../../context/cartSlice'
 import { LuShoppingCart } from 'react-icons/lu'
 import { FaRegHeart } from 'react-icons/fa'
 import { FiSearch } from 'react-icons/fi'
+import { toast } from 'react-toastify'
 
 const Products = ({data, loading}) => {
     const dispatch = useDispatch()
@@ -15,7 +16,12 @@ const Products = ({data, loading}) => {
             <div className="products__card-img">
                 <img src={el.images[0]} alt="" />
                 <article>
-                    <div onClick={() => dispatch(addToCart(el))}><LuShoppingCart /></div>
+                    <div onClick={() => {
+                        dispatch(addToCart(el))
+                        toast.success("Product has been added to cart")
+                    }}>
+                        <LuShoppingCart />
+                    </div>
                     <div><FaRegHeart /></div>
                     <div><FiSearch /></div>
                 </article>

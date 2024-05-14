@@ -11,7 +11,7 @@ const Home = () => {
   const {data, loading} = useFetch(`/products?limit=${count * 8}`, count)
   return (
     <div style={{marginTop: '83px'}} className='home-page'>
-        {/* <Hero/> */}
+        <Hero/>
         <div style={{marginTop: '120px'}}></div>
         <Products data={data} loading={loading}/>
         <div style={{display: 'flex', justifyContent: 'center', marginBottom: '56px'}} className="seeMore">

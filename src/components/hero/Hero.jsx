@@ -2,11 +2,12 @@ import React from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 // IMAGES
 import HeroBg1 from '../../images/heroBag.png'
 import HeroBg2 from '../../images/heroBag2.png'
 
-import { Navigation, Autoplay} from 'swiper/modules';
+import { Navigation, Autoplay, Pagination} from 'swiper/modules';
 
 const Hero = () => {
   return (
@@ -15,11 +16,12 @@ const Hero = () => {
         <Swiper 
           loop={true} 
           navigation={true} 
+          pagination={true}
           autoplay={{
             delay: 25000,
             disableOnInteraction: false,
           }}
-          modules={[Navigation, Autoplay]} 
+          modules={[Navigation, Autoplay, Pagination]} 
           className="hero__swiper">
           <SwiperSlide>
             <img src={HeroBg1} alt="swiper img" />
